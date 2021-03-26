@@ -4,6 +4,8 @@ This repo is intended to explore the behaviour of rtk-query in certain test envi
 
 Run `npm run test` to run the tests, or check the tests in the latest build under the [github actions](https://github.com/Shrugsy/rtk-query-test-fiddle/actions) for this project.  
 
+Test file is located at [src/tests/misc.test.tsx](https://github.com/Shrugsy/rtk-query-test-fiddle/blob/master/src/tests/misc.test.tsx)
+
 Current observed behaviour:  
 
 - Test 3 - Mocking the 'Date' object using `sinon.useFakeTimers` with no 'now' date specified (i.e. using the unix epoch date, with a timestamp of 0) causes additional requests to be sent compared to normal in a situation.  

@@ -72,7 +72,7 @@ test("Tests miscellaneous stuff", async () => {
 | but I can't see side effects in behavior |
 \*========================================*/
 test("Tests miscellaneous stuff, but with a mocked date at a given time", async () => {
-  console.log("====START TEST 3====");
+  console.log("====START TEST 2====");
   clock = sinon.useFakeTimers({
     now: new Date("2020-03-01"),
     toFake: ["Date"],
