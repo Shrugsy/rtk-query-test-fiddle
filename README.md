@@ -1,46 +1,14 @@
-# Getting Started with Create React App
+# rtk-query-test-fiddle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo is intended to explore the behaviour of rtk-query in certain test environments.
 
-## Available Scripts
+Run `npm run test` to run the tests, or check the tests in the latest build under the [github actions](https://github.com/Shrugsy/rtk-query-test-fiddle/actions) for this project.  
 
-In the project directory, you can run:
+Current observed behaviour:  
 
-### `npm start`
+- Test 3 - Mocking the 'Date' object using `sinon.useFakeTimers` with no 'now' date specified (i.e. using the unix epoch date, with a timestamp of 0) causes additional requests to be sent compared to normal in a situation.  
+  e.g. when one component uses a `query`, and many other components use the same `query`, only one request should be sent. However in the scenario for this test, multiple requests get sent.  
+  NOTE: does not seem to occur if providing a 'now' date to `sinon.useFakeTimers` (as in Test 2)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Test 4 - Mocking the `setTimeout` function using `sinon.useFakeTimers` prevents data from being received. Unknown what might cause this.  
+  NOTE: does not seem to occur when using `jest.useFakeTimers()` (as in Test 5)
